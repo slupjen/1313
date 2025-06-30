@@ -1,0 +1,21 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Render CLI
+        run: curl -fsSL https://raw.githubusercontent.com/render-oss/render-cli/main/scripts/install.sh | bash
+      - name: Deploy to Render
+        env:
+          RENDER_SERVICE_ID: ваш-service-id-з-render
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          render services deploy $RENDER_SERVICE_ID

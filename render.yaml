@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: telegram-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        fromGroup: bot-envs
+      - key: ADMIN_ID
+        fromGroup: bot-envs
+      - key: REDIS_URL
+        fromGroup: bot-envs
+      - key: WEBHOOK_URL
+        fromGroup: bot-envs
+      - key: WEBHOOK_SECRET
+        generateValue: true
+    plan: free
